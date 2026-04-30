@@ -1,7 +1,13 @@
 [project]
-name = "e-voting-system"
+name = "secure-e-voting"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.14"
-dependencies = []
+description = "A terminal-based secure electronic voting system using Paillier homomorphic encryption."
+requires-python = ">=3.11"
+dependencies = [
+    "phe>=1.5.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
