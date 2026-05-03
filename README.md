@@ -1,295 +1,134 @@
-# Secure Homomorphic E-Voting System
+# System E-Voting z szyfrowaniem homomorficznym
 
-A terminal-based electronic voting system that protects voter privacy using Paillier homomorphic encryption. The application allows eligible voters to cast encrypted yes/no votes for multiple questions or candidates, while final results are computed without revealing individual ballots.
+## Opis projektu
 
-## Features
+Projekt stanowi implementację systemu głosowania elektronicznego działającego w środowisku terminalowym (CLI), zaprojektowanego z uwzględnieniem wysokich wymagań w zakresie prywatności, integralności danych oraz audytowalności procesu wyborczego.
 
-- Homomorphic vote encryption using the Paillier cryptosystem.
-- Terminal-based voting interface.
-- Local JSON file storage for voters, questions, encrypted votes, results, and audit logs.
-- Multiple voting questions or candidates.
-- Boolean answer model: `yes` / `no`.
-- Authorized voter list.
-- Duplicate-vote protection per question.
-- Encrypted aggregation of votes.
-- Decryption only at the aggregated result level.
-- Audit logging without storing plaintext vote choices.
-- Automated unit and integration tests.
+Kluczowym elementem systemu jest wykorzystanie kryptografii homomorficznej (schemat Pailliera), umożliwiającej przeprowadzanie operacji na zaszyfrowanych danych. Dzięki temu możliwe jest zliczanie głosów bez konieczności ujawniania pojedynczych decyzji wyborców.
 
-## Project Structure
+## Funkcjonalności
+
+- szyfrowanie głosów przy użyciu kryptosystemu Pailliera
+- homomorficzna agregacja głosów
+- interfejs użytkownika w trybie CLI
+- trwałe przechowywanie danych w formacie JSON
+- obsługa listy uprawnionych wyborców
+- mechanizmy zapobiegające wielokrotnemu głosowaniu
+- możliwość definiowania wielu pytań oraz opcji odpowiedzi
+- obsługa różnych typów głosowań:
+  - wybory (wiele opcji do wyboru)
+  - referendum (pytania typu tak/nie)
+- rejestrowanie zdarzeń w logach audytowych
+- zestaw testów jednostkowych i integracyjnych
+
+## Struktura projektu
 
 ```text
-secure-e-voting/
-├── README.md
-├── pyproject.toml
-├── uv.lock
-├── .gitignore
-├── .python-version
-├── data/
-│   ├── voters.json
-│   ├── questions.json
-│   ├── votes.json
-│   ├── results.json
-│   └── audit_log.json
-├── keys/
-│   ├── public_key.json
-│   └── private_key.json
-├── src/
-│   └── secure_e_voting/
-│       ├── __init__.py
-│       ├── main.py
-│       ├── crypto.py
-│       ├── models.py
-│       ├── repositories.py
-│       ├── services.py
-│       ├── cli.py
-│       └── exceptions.py
-├── tests/
-│   ├── conftest.py
-│   ├── test_crypto.py
-│   ├── test_voting.py
-│   ├── test_tally.py
-│   └── test_integration.py
-└── scripts/
-    ├── generate_keys.py
-    ├── seed_data.py
-    ├── run_demo.py
-    └── reset_data.py
+e-voting-system/
+├── src/                # kod źródłowy aplikacji
+├── data/               # dane wejściowe (wyborcy, pytania, głosy)
+├── scripts/            # skrypty pomocnicze
+├── tests/              # testy
+├── pyproject.toml      # konfiguracja projektu (uv)
+├── uv.lock             # blokada zależności
 ```
 
-## Technologies
+## Wymagania
 
-- Python 3.11+
-- `phe` for Paillier homomorphic encryption
-- `rich` for terminal output
-- `pytest` for automated tests
-- JSON files as a lightweight persistence layer
-- `uv` for Python version, virtual environment, and dependency management
+- Python w wersji 3.12 lub nowszej
+- narzędzie `uv` do zarządzania środowiskiem i zależnościami
 
-## Installation
+## Instalacja i uruchomienie
 
-The project can be configured with `uv`. This tool is used to manage the Python version, virtual environment, and project dependencies.
+### Instalacja narzędzia uv
 
-### 1. Clone the repository
+Jeżeli narzędzie `uv` nie jest zainstalowane:
 
 ```bash
-git clone https://github.com/user/secure-e-voting.git
-cd secure-e-voting
+pip install uv
 ```
 
-### 2. Install `uv`
-
-#### Linux / macOS
+lub:
 
 ```bash
 curl -Ls https://astral.sh/uv/install.sh | sh
 ```
 
-#### Windows PowerShell
-
-```powershell
-irm https://astral.sh/uv/install.ps1 | iex
-```
-
-Verify the installation:
+### Klonowanie repozytorium
 
 ```bash
-uv --version
+git clone <repo-url>
+cd e-voting-system
 ```
 
-### 3. Create a virtual environment
-
-```bash
-uv venv
-```
-
-By default, this creates a `.venv` directory inside the project directory.
-
-### 4. Activate the virtual environment
-
-#### Linux / macOS
-
-```bash
-source .venv/bin/activate
-```
-
-#### Windows
-
-```cmd
-.venv\Scripts\activate.bat
-```
-
-### 5. Install all dependencies
-
-If the project contains a `pyproject.toml` file, install dependencies with:
+### Instalacja zależności
 
 ```bash
 uv sync
 ```
 
-### 6. Run the project
-
-After activating the virtual environment, run the application with:
-
-```bash
-python -m secure_e_voting.main
-```
-
-You can also run commands without manually activating the environment:
-
-```bash
-uv run python -m secure_e_voting.main
-```
-
-## Usage
-
-Seed sample data and generate Paillier keys:
-
-```bash
-uv run python scripts/seed_data.py
-```
-
-Run the interactive terminal application:
-
-```bash
-uv run python -m secure_e_voting.main
-```
-
-Run an automated demonstration:
-
-```bash
-uv run python scripts/run_demo.py
-```
-
-Reset votes, results, audit logs, and voter state:
-
-```bash
-uv run python scripts/reset_data.py
-```
-
-Generate a fresh Paillier key pair only:
+### Generowanie kluczy kryptograficznych
 
 ```bash
 uv run python scripts/generate_keys.py
 ```
 
-## Data Model
+### Uruchomienie aplikacji
 
-### Voters
-
-Each voter is stored in `data/voters.json`:
-
-```json
-{
-  "voter_id": "voter_001",
-  "name": "Alice Smith",
-  "voted_questions": []
-}
+```bash
+uv run python -m src.main
 ```
 
-The `voted_questions` list prevents duplicate voting on the same question while still allowing the voter to answer other questions.
+Opcjonalnie (tryb demonstracyjny):
 
-### Questions
-
-Questions are stored in `data/questions.json`:
-
-```json
-{
-  "question_id": "q1",
-  "text": "Should candidate Alice be accepted?"
-}
+```bash
+uv run python scripts/run_demo.py
 ```
 
-### Votes
+## Typy obsługiwanych głosowań
 
-Votes are encrypted before being written to `data/votes.json`. The system stores only the encrypted ciphertext and exponent required to reconstruct the encrypted number.
+System umożliwia przeprowadzanie różnych form głosowań.
 
-### Results
+### Wybory
 
-Final results are stored in `data/results.json` after encrypted votes are aggregated and the final sum is decrypted.
+- wiele możliwych opcji (np. kandydaci)
+- wyborca wskazuje jedną z dostępnych opcji
+- konfiguracja w plikach danych, np. `questions_election.json`
 
-### Audit Log
+### Referendum
 
-The audit log stores operational events such as accepted votes, rejected votes, unauthorized attempts, and completed tally operations. It does not store plaintext vote content.
+- pytania o charakterze binarnym (tak/nie)
+- uproszczony model odpowiedzi
+- konfiguracja w plikach danych, np. `questions_referendum.json`
 
-## Testing
+## Przebieg procesu głosowania
 
-Run all tests:
+1. weryfikacja uprawnień wyborcy
+2. prezentacja pytań lub listy kandydatów
+3. oddanie głosu i jego natychmiastowe zaszyfrowanie
+4. zapis zaszyfrowanego głosu w systemie
+5. agregacja głosów przy użyciu własności homomorficznych
+6. odszyfrowanie wyłącznie wyniku końcowego
+
+## Testy
+
+Uruchomienie testów:
 
 ```bash
 uv run pytest
 ```
 
-The test suite includes:
+## Aspekty bezpieczeństwa
 
-- encryption and decryption tests,
-- homomorphic addition tests,
-- authorized voter tests,
-- unauthorized voter rejection tests,
-- duplicate voting tests,
-- multiple-question voting tests,
-- full election flow integration tests.
+- brak przechowywania głosów w postaci jawnej
+- szyfrowanie danych na etapie oddawania głosu
+- brak możliwości odtworzenia pojedynczych decyzji wyborców
+- możliwość audytu procesu bez naruszenia prywatności
 
-## Security Notes
+## Uwagi
 
-This is an educational project, not a production-ready voting system. It demonstrates the privacy property of homomorphic tallying, but it does not implement all requirements of a real-world election platform, such as strong identity verification, distributed key management, coercion resistance, verifiable ballots, or independent public auditability.
+Projekt ma charakter demonstracyjny i edukacyjny. Nie jest przeznaczony do wykorzystania w rzeczywistych systemach wyborczych bez przeprowadzenia dodatkowych analiz bezpieczeństwa, wdrożenia infrastruktury kryptograficznej oraz spełnienia wymogów formalnych i prawnych.
 
-The private key must be protected. In a real system, `keys/private_key.json` must never be committed to a public repository.
+## Licencja
 
-## License
-
-MIT License. Replace this section if your project uses a different license.
-
-## New CLI modes
-
-The application can now infer the voting screen from the questions file. If questions look like referendum questions, the UI shows `Tak/Nie`; if the file contains candidates/election items, it shows an election list.
-
-Local TUI with a custom questions file:
-
-```bash
-uv run python -m secure_e_voting.main local data/questions.json
-```
-
-Backward-compatible shortcut:
-
-```bash
-uv run python -m secure_e_voting.main data/questions.json
-```
-
-Default local mode still works:
-
-```bash
-uv run python -m secure_e_voting.main
-```
-
-## Client-server mode
-
-Start the server and pass the questions file path:
-
-```bash
-uv run python -m secure_e_voting.main server data/questions.json
-```
-
-The server listens on TCP port `8765` and broadcasts discovery packets on UDP port `8766` to `255.255.255.255`. This is the IP-layer equivalent of broadcast discovery, so the client does not need to know the server IP address.
-
-Start a client in the same LAN:
-
-```bash
-uv run python -m secure_e_voting.main client
-```
-
-Flow:
-
-1. client discovers the server automatically,
-2. voter enters name, last 4 PESEL digits, and ID card number,
-3. server verifies the voter against `data/voters.json`,
-4. server sends the detected voting mode and questions,
-5. client submits answers,
-6. server records encrypted votes and returns the result summary.
-
-Optional ports:
-
-```bash
-uv run python -m secure_e_voting.main server data/questions.json --port 9000 --discovery-port 9001
-uv run python -m secure_e_voting.main client --discovery-port 9001
-```
+Szczegóły znajdują się w pliku `LICENSE`.
