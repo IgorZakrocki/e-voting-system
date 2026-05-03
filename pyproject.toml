@@ -2,12 +2,28 @@
 name = "secure-e-voting"
 version = "0.1.0"
 description = "A terminal-based secure electronic voting system using Paillier homomorphic encryption."
+readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "phe>=1.5.0",
+    "rich>=13.0.0",
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=8.0.0",
 ]
+
+[project.scripts]
+secure-e-voting = "secure_e_voting.main:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/secure_e_voting"]

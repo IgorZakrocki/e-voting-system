@@ -1,6 +1,4 @@
-def main():
-    print("Hello from e-voting-system!")
-
+from cli import main
 
 if __name__ == "__main__":
     main()

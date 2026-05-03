@@ -1,0 +1,30 @@
+[
+  {
+    "question_id": "q01",
+    "text": "Czy organizacja powinna wprowadzić głosowanie elektroniczne w kolejnych wyborach?"
+  },
+  {
+    "question_id": "q02",
+    "text": "Czy kadencja przewodniczącego powinna zostać wydłużona z jednego roku do dwóch lat?"
+  },
+  {
+    "question_id": "q03",
+    "text": "Czy roczne sprawozdania finansowe powinny być udostępniane wszystkim członkom organizacji?"
+  },
+  {
+    "question_id": "q04",
+    "text": "Czy członkowie powinni mieć możliwość zdalnego udziału w walnych zebraniach?"
+  },
+  {
+    "question_id": "q05",
+    "text": "Czy wyniki referendum powinny być ważne tylko po osiągnięciu minimalnej frekwencji?"
+  },
+  {
+    "question_id": "q06",
+    "text": "Czy członkowie powinni mieć możliwość zgłaszania propozycji referendalnych drogą elektroniczną?"
+  },
+  {
+    "question_id": "q07",
+    "text": "Czy końcowe wyniki głosowania powinny być automatycznie eksportowane do publicznego pliku podsumowującego?"
+  }
+]
