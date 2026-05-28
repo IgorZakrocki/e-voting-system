@@ -171,7 +171,7 @@ def run_server(questions_path: str | Path, host: str = "0.0.0.0", port: int = 87
 
     print(f"Serwer działa na {host}:{port}")
     print(f"Tryb wykryty automatycznie: {mode}")
-    print(f"Rozgłaszanie UDP broadcast na porcie {discovery_port}; klient nie musi znać IP serwera.")
+    print(f"Rozgłaszanie UDP broadcast na porcie {discovery_port}.")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
