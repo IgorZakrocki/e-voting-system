@@ -16,8 +16,6 @@ Terminalowy system głosowania elektronicznego wykorzystujący szyfrowanie homom
 - [Przebieg głosowania](#przebieg-głosowania)
 - [Testy](#testy)
 - [Bezpieczeństwo i ograniczenia](#bezpieczeństwo-i-ograniczenia)
-- [Uwagi dla dewelopera](#uwagi-dla-dewelopera)
-- [Licencja](#licencja)
 
 ## Najważniejsze funkcje
 
