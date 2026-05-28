@@ -26,7 +26,6 @@ htmlcov/
 
 # Data / generated files
 **/__pycache__/
-tests/
 datasets/
 outputs/
 reports/

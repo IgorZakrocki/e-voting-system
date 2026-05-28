@@ -61,6 +61,15 @@ class VotingService:
             self.audit_service.log("vote_rejected", voter_id, "rejected", "invalid_vote_value")
             raise InvalidVoteValueError("Answer must be a boolean value.")
 
+        votes = self.vote_repo.load_all()
+        already_voted_on_question = any(
+            str(vote.get("voter_id")) == str(voter_id) and vote.get("question_id") == question_id
+            for vote in votes
+        )
+        if already_voted_on_question:
+            self.audit_service.log("vote_rejected", voter_id, "rejected", "voter_already_voted_on_question")
+            raise VoterAlreadyVotedError("Voter has already voted on this question.")
+
         encrypted_vote = self.crypto_service.encrypt_vote(1 if answer else 0)
         serialized_vote = self.crypto_service.serialize_encrypted_number(encrypted_vote)
 
@@ -71,7 +80,6 @@ class VotingService:
             **serialized_vote,
         }
 
-        votes = self.vote_repo.load_all()
         votes.append(vote)
         self.vote_repo.save_all(votes)
 

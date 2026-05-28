@@ -10,42 +10,42 @@
     "name": "Anna Nowak",
     "pesel": "90220401978",
     "id_card_number": "QTN147253",
-    "voted": true,
+    "voted": false,
     "voter_id": "90220401978"
   },
   {
     "name": "Piotr Wiśniewski",
     "pesel": "90222102341",
     "id_card_number": "PRL955172",
-    "voted": true,
+    "voted": false,
     "voter_id": "90222102341"
   },
   {
     "name": "Katarzyna Wójcik",
     "pesel": "90231002711",
     "id_card_number": "NDX463091",
-    "voted": true,
+    "voted": false,
     "voter_id": "90231002711"
   },
   {
     "name": "Michał Kowalczyk",
     "pesel": "90232703086",
     "id_card_number": "PZM971010",
-    "voted": true,
+    "voted": false,
     "voter_id": "90232703086"
   },
   {
     "name": "Agnieszka Kamińska",
     "pesel": "90241303455",
     "id_card_number": "LBH878929",
-    "voted": true,
+    "voted": false,
     "voter_id": "90241303455"
   },
   {
     "name": "Tomasz Lewandowski",
     "pesel": "90243003827",
     "id_card_number": "BZT986848",
-    "voted": true,
+    "voted": false,
     "voter_id": "90243003827"
   },
   {
@@ -59,7 +59,7 @@
     "name": "Paweł Szymański",
     "pesel": "90260304565",
     "id_card_number": "FAP802686",
-    "voted": true,
+    "voted": false,
     "voter_id": "90260304565"
   },
   {
@@ -73,7 +73,7 @@
     "name": "Marcin Dąbrowski",
     "pesel": "90270705305",
     "id_card_number": "LIA918524",
-    "voted": true,
+    "voted": false,
     "voter_id": "90270705305"
   },
   {
@@ -94,7 +94,7 @@
     "name": "Monika Mazur",
     "pesel": "90282706411",
     "id_card_number": "QAH442281",
-    "voted": true,
+    "voted": false,
     "voter_id": "90282706411"
   },
   {
